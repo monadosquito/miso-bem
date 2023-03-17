@@ -96,12 +96,13 @@ import Bem.Miso.View.Html
 import Bem.Miso.View.Mk.Mk
 import Bem.Utl.Intr
 import Miso
+import Bem.Miso.Utl.Utl
 
 
-search :: FromBlkElem (View ())
+search :: FromBlkNoModsElem (View ())
 search
     =
-    blkElem (NonVoidHtmlElem section_)
+    blkNoModsElem (NonVoidHtmlElem section_)
         ( []
         , ([ blkElem (VoidHtmlElem input_)
                  [placeholder_ "Text to search"]
@@ -156,29 +157,34 @@ import Bem.Scheme
 import View.Search
 
 import Bem.Miso.View.Html
-import Bem.Miso.View.Mk.Mk
 import Control.Monad.Reader
 import Miso
 import Miso.String
+import Bem.Miso.Utl.Utl
 
 
-mkHeader :: Reader MisoString (BlkElem ())
+mkHeader :: Reader MisoString (BlkNoModsElem ())
 mkHeader = do
     userName <- ask
-    mkBlkElem (NonVoidHtmlElem header_)
+    mkBlkNoModsElem (NonVoidHtmlElem header_)
         ( []
-        , [ blkElem (NonVoidHtmlElem span_)
+        , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
                 ([], [text "Logo"])
                 Logo
-                []
                 Root
                 Root_Logo
-                []
           , span_ [] [text userName]
-          , search Search [Search_Dark] Header Header_Search []
+          , search Search [Search_Dark] Header Header_Search
           ]
         )
 ```
+
+## Hints
+
+- The partial [*view makers*](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#v:blkNoModsElem) can be used
+in place
+of the [regular ones](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:elem)
+to omit corresponding needless modifiers.
 
 ## Notes
 
@@ -219,11 +225,11 @@ import Miso.String
 
 mkRoot :: Reader MisoString (View ())
 mkRoot = do
-    BlkElem header <- mkHeader
+    BlkNoModsElem header <- mkHeader
     return
         $ div_
               [class_ "Root"]
-              [header Header [Header_Dark] Root Root_Header []]
+              [header Header [Header_Dark] Root Root_Header]
 ```
 
 ## Hints
@@ -354,4 +360,5 @@ followed by the [`bem` library](https://github.com/monadosquito/bem).
 
 ## Defined scopes
 
+- utl
 - view
