@@ -1,7 +1,7 @@
 cabal-version: 2.4
 
 author: monadosquito
-description: Make views.
+description: Make views using Bem class custom decorations.
 extra-source-files: CHANGELOG.md
 license-file: LICENSE
 license: MIT
@@ -19,5 +19,6 @@ library
         , Bem.Miso.View.Mk.Mk
         , Bem.Miso.View.View
         , Bem.Miso.Utl.Utl
+        , Bem.Miso.View.Mk.Cfg
     hs-source-dirs: src
-    other-extensions: GADTs, RankNTypes
+    other-extensions: GADTs, RankNTypes, LambdaCase, RecordWildCards

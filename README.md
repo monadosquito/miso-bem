@@ -55,28 +55,34 @@ but regarding the `miso-bem` library.
 
 # Usage flow
 
-1. Create a Bem scheme.
-([?](https://github.com/monadosquito/bem#define-scheme))
-2. Create *element view generators*. ([?](#create-element-view))
-3. Create *block view generators*. ([?](#create-block-view))
-4. Optionally, create a top-level *context* binding.
+1. Create a Bem scheme. ([?](https://github.com/monadosquito/bem#define-scheme))
+2.
+    -
+        1. Create *element views* ([?](#create-element-view-using-default-decorations))
+        2. and *block views*
+        using the default decorations ([?](#create-block-view-using-default-decorations))
+    - or configure the *views makers* ([?](#configure-view-makers))
+        1. then create *element views* ([?](#create-element-view-using-custom-decorations))
+        2. and *block views* using custom decorations.
+        ([?](#create-block-view-using-custom-decorations))
+3. Optionally, create a top-level *context* binding.
 ([?](#create-top-level-context))
-5. Run the top-level *context*. ([?](#run-top-level-context))
+4. Run the lop-level *context*. ([?](#run-top-level-context))
 
-# Create element view
+# Create element view using default decorations
 
 Define an *element view generator*
 1. obtaining needed data as arguments
-2. and partially applying an appropriate [*element view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:elem)
+2. and partially applying an appropriate [*element view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:elem) function
 to both a `miso` HTML element
 and its inner *element views* ([?](#include-element-view))
 and *mix views* ([?](#include-mix-view))
 including the obtained data.
 
-# Create mix view
+# Create mix view using default decorations
 
 Follow [creating an *element view*](#create-element-view)
-but regarding a *mix view generator* and a *mix view maker*.
+but regarding a *mix view generator* and a [*mix view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:blkElem) function.
 
 ## Example
 
@@ -94,15 +100,17 @@ import Bem.Scheme
 
 import Bem.Miso.View.Html
 import Bem.Miso.View.Mk.Mk
-import Bem.Utl.Intr
 import Miso
+
+import Bem.Init
+
 import Bem.Miso.Utl.Utl
 
 
-search :: FromBlkNoModsElem (View ())
+search :: BlkNoModsElem' ()
 search
     =
-    blkNoModsElem (NonVoidHtmlElem section_)
+    _blkNoModsElem mks (NonVoidHtmlElem section_)
         ( []
         , ([ blkElem (VoidHtmlElem input_)
                  [placeholder_ "Text to search"]
@@ -131,7 +139,7 @@ using a [*mix view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View
 - If an *element view generator* is too complex or used in multiple places,
 then it should be a top-level binding.
 
-# Create block view
+# Create block view using default decorations
 
 Define a *context*,
 1. obtaining needed data
@@ -162,11 +170,13 @@ import Miso
 import Miso.String
 import Bem.Miso.Utl.Utl
 
+import Bem.Init
 
-mkHeader :: Reader MisoString (BlkNoModsElem ())
+
+mkHeader :: MkBlkNoModsElem' () MisoString
 mkHeader = do
     userName <- ask
-    mkBlkNoModsElem (NonVoidHtmlElem header_)
+    _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
         ( []
         , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
                 ([], [text "Logo"])
@@ -186,6 +196,114 @@ in place
 of the [regular ones](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:elem)
 to omit corresponding needless modifiers.
 
+# Configure view makers
+
+Follow [configuring the Bem class generators](https://github.com/monadosquito/bem#configure-class-generators)
+but regarding the `miso-bem` [`init`](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#v:init) function
+and [`Mks`](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#t:Mks) record.
+
+# Create element view using custom decorations
+
+Follow [creating an *element view* using the default decorations](#create-element-view-using-default-decorations)
+but regarding a configured ([?](#configure-view-makers)) [*element view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#t:Mks) field-function.
+
+# Create mix view using custom decorations
+
+Follow [creating an *element view* using the default decorations](#create-element-view-using-default-decorations)
+but regarding a *mix view generator*
+and a configured ([?](#configure-view-makers)) [*mix view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#t:Mks) field-function.
+
+## Example
+
+`src/View/Search.hs`
+<!-- 'src/View/Search.hs' -->
+```hs
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RankNTypes #-}
+
+
+module View.Search where
+
+
+import Bem.Scheme
+
+import Bem.Miso.View.Html
+import Bem.Miso.View.Mk.Mk
+import Miso
+
+import Bem.Init
+
+import Bem.Miso.Utl.Utl
+
+
+search :: BlkNoModsElem' ()
+search
+    =
+    _blkNoModsElem mks (NonVoidHtmlElem section_)
+        ( []
+        , ([ blkElem (VoidHtmlElem input_)
+                 [placeholder_ "Text to search"]
+                 TextInput
+                 [TextInput_Dark]
+                 Search
+                 Search_TextInput
+                 [SearchTextInput_Size Big]
+           , blkElem (VoidHtmlElem input_)
+                 [type_ "button", value_ "Search"]
+                 Btn
+                 [Btn_Dark]
+                 Search
+                 Search_Btn
+                 [SearchBtn_Size Big]
+           ]
+          )
+        )
+```
+
+# Create block view using custom decorations
+
+Follow [creating a *block view* using the default decorations](#create-block-view-using-default-decorations)
+but regarding a configured [*block view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#t:Mks) field-function.
+
+## Example
+
+`src/View/Header.hs`
+<!-- 'src/View/Header.hs' -->
+```hs
+{-# LANGUAGE OverloadedStrings #-}
+
+
+module View.Header where
+
+
+import Bem.Scheme
+import View.Search
+
+import Bem.Miso.View.Html
+import Control.Monad.Reader
+import Miso
+import Miso.String
+import Bem.Miso.Utl.Utl
+
+import Bem.Init
+
+
+mkHeader :: MkBlkNoModsElem' () MisoString
+mkHeader = do
+    userName <- ask
+    _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
+        ( []
+        , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
+                ([], [text "Logo"])
+                Logo
+                Root
+                Root_Logo
+          , span_ [] [text userName]
+          , search Search [Search_Dark] Header Header_Search
+          ]
+        )
+```
+
 ## Notes
 
 - In order that a `miso` HTML element can be passed into a *view maker*,
@@ -193,6 +311,8 @@ wrap it into the [`HtmlElem`](https://monadosquito.github.io/miso-bem/Bem-Miso-V
 namely,
     - a non-void one into the `NonVoidHtmlElem` data constructor
     - and a void one into the `VoidHtmlElem` data constructor.
+- In order that the `Mks` field-functions using custom decorations can be used,
+they must be configured. ([?](#configure-view-makers))
 
 # Create top-level context
 
@@ -218,12 +338,11 @@ import Bem.Scheme
 import View.Header
 
 import Bem.Miso.Utl.Utl
-import Control.Monad.Reader
 import Miso
 import Miso.String
 
 
-mkRoot :: Reader MisoString (View ())
+mkRoot :: MkSingleton' () MisoString
 mkRoot = do
     BlkNoModsElem header <- mkHeader
     return
@@ -250,9 +369,10 @@ using pattern matching
 over an appropriate [wrapper data constructor](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#t:BlkElem).
 3. Bind a name to the unwrapped *block view generator*
 inside the mattern match.
-4. Follow [Bem classes generating](https://github.com/monadosquito/bem#generate-classes-using-default-decorations)
-but regarding the bound *block view generator*
-to obtain a *block view*.
+4. Follow
+    - [Bem classes generating using the default decorations](https://github.com/monadosquito/bem#generate-classes-using-default-decorations)
+    - or [Bem classes generating using custom decorations](https://github.com/monadosquito/bem#generate-classes-using-custom-decorations)
+but regarding the bound *block view generator* to obtain a *block view*.
 5. Pass the obtained *block view*
 into the [*block view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:mkBlkElem)
 used
@@ -360,5 +480,6 @@ followed by the [`bem` library](https://github.com/monadosquito/bem).
 
 ## Defined scopes
 
+- cfg
 - utl
 - view

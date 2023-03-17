@@ -1,5 +1,15 @@
 # [Unreleased]
 
+## Added
+
+- The view Bem class decorations can be configured
+by applying the [`init`](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#v:init) function
+to an appropriate [`Cfg`](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html#t:Cfg) record
+and assigning the resulting [`Mks`](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Cfg.html#t:Mks) record
+of configured view generators a name
+in order that the view generators can be referenced
+with it.
+
 # [1.0.0] - 2023-07-01
 
 ## Added

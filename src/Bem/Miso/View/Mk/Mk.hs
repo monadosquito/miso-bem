@@ -2,7 +2,7 @@
 {-# LANGUAGE RankNTypes #-}
 
 
--- | Make views.
+-- | Make views using the default Bem class decorations.
 module Bem.Miso.View.Mk.Mk
            ( module Bem.Miso.View.Html
            , module Bem.Miso.View.Mk.Mk
