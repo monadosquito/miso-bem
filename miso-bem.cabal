@@ -21,4 +21,9 @@ library
         , Bem.Miso.Utl.Utl
         , Bem.Miso.View.Mk.Cfg
     hs-source-dirs: src
-    other-extensions: GADTs, RankNTypes, LambdaCase, RecordWildCards
+    other-extensions:
+        GADTs
+        , RankNTypes
+        , LambdaCase
+        , RecordWildCards
+        , KindSignatures

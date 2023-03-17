@@ -1,3 +1,5 @@
+{-# LANGUAGE GADTs #-}
+{-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE GADTs #-}
 
@@ -26,21 +28,21 @@ newtype BlkElem a = BlkElem (FromBlkElem (View a))
 
 {- |
 the wrapper
-through that the Bem.Utl.Intr.NoModsBlkElem type can be passed
+through that the <Bem.Utl.Intr.NoModsBlkElem> type can be passed
 into the non-function type constructor
 -}
 newtype NoModsBlkElem a = NoModsBlkElem (FromNoModsBlkElem (View a))
 
 {- |
 the wrapper
-through that the Bem.Utl.Intr.FromBlkNoModsElem type can be passed
+through that the <Bem.Utl.Intr.FromBlkNoModsElem> type can be passed
 into the non-function type constructor
 -}
 newtype BlkNoModsElem a = BlkNoModsElem (FromBlkNoModsElem (View a))
 
 {- |
 the wrapper
-through that the Bem.Utl.Intr.FromNoModsBlkNoModsElem type can be passed
+through that the <Bem.Utl.Intr.FromNoModsBlkNoModsElem> type can be passed
 into the non-function type constructor
 -}
 newtype NoModsBlkNoModsElem a = NoModsBlkNoModsElem
@@ -190,3 +192,16 @@ noModsElem (VoidHtmlElem nonVoidHtmlElem) attrs
     \prnt elem'
     ->
     nonVoidHtmlElem $ (class_ . ms $ genElem prnt elem' []) : attrs
+
+
+-- | a view having a class of a block and element along with their modifiers
+type BlkElem' a = FromBlkElem (View a)
+
+-- | a view having a class of a element along with its modifiers
+type Elem' a = forall b . FromFullElem b (View a)
+
+{- |
+a view having access to the model
+and a class of a block and element along with their modifiers
+-}
+type MkBlkElem' a m = Reader m (BlkElem a)

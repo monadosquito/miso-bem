@@ -79,6 +79,11 @@ and its inner *element views* ([?](#include-element-view))
 and *mix views* ([?](#include-mix-view))
 including the obtained data.
 
+## Hints
+
+- The [*element view maker* type signatures](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:Elem-39-) can be used
+as type signatures for *element view generators*.
+
 # Create mix view using default decorations
 
 Follow [creating an *element view*](#create-element-view)
@@ -100,17 +105,18 @@ import Bem.Scheme
 
 import Bem.Miso.View.Html
 import Bem.Miso.View.Mk.Mk
+import Bem.Utl.Intr
 import Miso
 
 import Bem.Init
 
-import Bem.Miso.Utl.Utl
+import Bem.Miso.View.Mk.Cfg
 
 
-search :: BlkNoModsElem' ()
+search :: FromBlkElem (View ())
 search
     =
-    _blkNoModsElem mks (NonVoidHtmlElem section_)
+    _blkElem mks (NonVoidHtmlElem section_)
         ( []
         , ([ blkElem (VoidHtmlElem input_)
                  [placeholder_ "Text to search"]
@@ -133,6 +139,8 @@ search
 
 ## Hints
 
+- The [*mix view maker* type signatures](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:BlkElem-39-) can be used
+as type signatures for *mix view generators*.
 - If an *element view generator* is also needed to have a BEM block,
 create an equivalent *mix view generator*
 using a [*mix view maker*](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:blkElem) instead.
@@ -172,11 +180,13 @@ import Bem.Miso.Utl.Utl
 
 import Bem.Init
 
+import Bem.Miso.View.Mk.Cfg
 
-mkHeader :: MkBlkNoModsElem' () MisoString
+
+mkHeader :: MkBlkElem' () MisoString
 mkHeader = do
     userName <- ask
-    _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
+    _mkBlkElem mks (NonVoidHtmlElem header_)
         ( []
         , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
                 ([], [text "Logo"])
@@ -184,13 +194,15 @@ mkHeader = do
                 Root
                 Root_Logo
           , span_ [] [text userName]
-          , search Search [Search_Dark] Header Header_Search
+          , search Search [Search_Dark] Header Header_Search []
           ]
         )
 ```
 
 ## Hints
 
+- The [*block view generator* type aliases](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkBlkElem-39-) can be used
+as type signatures for *block view generators*.
 - The partial [*view makers*](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#v:blkNoModsElem) can be used
 in place
 of the [regular ones](https://monadosquito.github.io/miso-bem/Bem-Miso-View-Mk-Mk.html#v:elem)
@@ -229,17 +241,18 @@ import Bem.Scheme
 
 import Bem.Miso.View.Html
 import Bem.Miso.View.Mk.Mk
+import Bem.Utl.Intr
 import Miso
 
 import Bem.Init
 
-import Bem.Miso.Utl.Utl
+import Bem.Miso.View.Mk.Cfg
 
 
-search :: BlkNoModsElem' ()
+search :: FromBlkElem (View ())
 search
     =
-    _blkNoModsElem mks (NonVoidHtmlElem section_)
+    _blkElem mks (NonVoidHtmlElem section_)
         ( []
         , ([ blkElem (VoidHtmlElem input_)
                  [placeholder_ "Text to search"]
@@ -287,11 +300,13 @@ import Bem.Miso.Utl.Utl
 
 import Bem.Init
 
+import Bem.Miso.View.Mk.Cfg
 
-mkHeader :: MkBlkNoModsElem' () MisoString
+
+mkHeader :: MkBlkElem' () MisoString
 mkHeader = do
     userName <- ask
-    _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
+    _mkBlkElem mks (NonVoidHtmlElem header_)
         ( []
         , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
                 ([], [text "Logo"])
@@ -299,7 +314,7 @@ mkHeader = do
                 Root
                 Root_Logo
           , span_ [] [text userName]
-          , search Search [Search_Dark] Header Header_Search
+          , search Search [Search_Dark] Header Header_Search []
           ]
         )
 ```
@@ -338,17 +353,18 @@ import Bem.Scheme
 import View.Header
 
 import Bem.Miso.Utl.Utl
+import Control.Monad.Reader
 import Miso
 import Miso.String
 
 
-mkRoot :: MkSingleton' () MisoString
+mkRoot :: Reader MisoString (View ())
 mkRoot = do
-    BlkNoModsElem header <- mkHeader
+    BlkElem header <- mkHeader
     return
         $ div_
               [class_ "Root"]
-              [header Header [Header_Dark] Root Root_Header]
+              [header Header [Header_Dark] Root Root_Header []]
 ```
 
 ## Hints
