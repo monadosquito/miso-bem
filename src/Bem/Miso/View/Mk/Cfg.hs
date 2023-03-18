@@ -12,30 +12,19 @@ import Bem.Miso.Utl.Utl
 import Bem.Miso.View.Html
 
 import Bem.Cfg.Cfg
-import Bem.Utl.Intr
-import Control.Monad.Reader
 import Miso
 import Miso.String
 import qualified Bem.Utl.Utl as Bem
 
 
 -- | the configurable view makers
-data Mks a m = Mks { _blkElem
-                         :: forall c
-                         . HtmlElem a c
-                         -> c
-                         -> FromBlkElem (View a)
-                   , _elem
-                         :: forall c
-                         . HtmlElem a c
-                         -> c
-                         -> forall b
-                         . FromFullElem b (View a)
+data Mks a m = Mks { _blkElem :: forall c . HtmlElem a c -> c -> BlkElem' a
+                   , _elem :: forall c . HtmlElem a c -> c -> Elem' a
                    , _mkBlkElem
                          :: forall c
                          . HtmlElem a c
                          -> c
-                         -> Reader m (BlkElem a)
+                         -> MkBlkElem' a m
                    }
 
 -- | Initialise the configurable view makers using a configuration.

@@ -13,8 +13,6 @@ module Bem.Miso.View.Mk.Mk
 import Bem.Miso.View.Html
 
 import Bem.Cls.Gen.Gen
-import Bem.Utl.Intr
-import Control.Monad.Reader
 import Miso
 import Miso.String
 
@@ -24,7 +22,7 @@ import Bem.Miso.Utl.Utl
 {- |
 Make a view having a class of a block and element along with their modifiers.
 -}
-blkElem :: HtmlElem a c -> c -> FromBlkElem (View a)
+blkElem :: HtmlElem a c -> c -> BlkElem' a
 blkElem (NonVoidHtmlElem nonVoidHtmlElem) (attrs, views)
     =
     \blk blkMods prnt elem' elemMods
@@ -40,7 +38,7 @@ blkElem (VoidHtmlElem voidHtmlElem) attrs
         $ (class_ . ms $ genBlkElem blk blkMods prnt elem' elemMods) : attrs
 
 -- | Make a view having a class of a element along with its modifiers.
-elem :: HtmlElem a c -> c -> forall b . FromFullElem b (View a)
+elem :: HtmlElem a c -> c -> Elem' a
 elem (NonVoidHtmlElem nonVoidHtmlElem) (attrs, views)
     =
     \prnt elem' elemMods
@@ -58,7 +56,7 @@ having access to the model
 and a class of a block
 and element along with their modifiers.
 -}
-mkBlkElem :: HtmlElem a c -> c -> Reader m (BlkElem a)
+mkBlkElem :: HtmlElem a c -> c -> MkBlkElem' a m
 mkBlkElem (NonVoidHtmlElem nonVoidHtmlElem) (attrs, views)
     =
     return
