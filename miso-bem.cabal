@@ -18,5 +18,6 @@ library
         , Bem.Miso.View.Html
         , Bem.Miso.View.Mk.Mk
         , Bem.Miso.View.View
+        , Bem.Miso.Utl.Utl
     hs-source-dirs: src
     other-extensions: GADTs, RankNTypes

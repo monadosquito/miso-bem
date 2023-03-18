@@ -6,6 +6,7 @@
 module Bem.Miso.View.Mk.Mk
            ( module Bem.Miso.View.Html
            , module Bem.Miso.View.Mk.Mk
+           , BlkElem
            ) where
 
 
@@ -17,13 +18,7 @@ import Control.Monad.Reader
 import Miso
 import Miso.String
 
-
-{- |
-the wrapper
-through that the <Bem.Utl.Intr.FromBlkElem> type can be passed
-into a non-function type constructor
--}
-newtype BlkElem a = BlkElem (FromBlkElem (View a))
+import Bem.Miso.Utl.Utl
 
 
 {- |
