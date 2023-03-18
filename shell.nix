@@ -6,12 +6,24 @@ let
     unpath = pin.unpath {};
 in
 {
-    ms ? miso
+    ms ? miso,
+    pkgs ? pin.nixpkgs {},
 }
 :
 ms.pkgs.mkShell
     {
-        buildInputs = [ms.pkgs.cabal-install traverse unpath];
+        buildInputs
+            =
+            [
+                ms.pkgs.cabal-install
+                traverse
+                unpath
+                (ms.pkgs.writeShellScriptBin
+                     "watch"
+                     (ms.pkgs.lib.readFile ./scr/watch.sh)
+                )
+                pkgs.ghcid
+            ];
         inputsFrom
             =
                 [
