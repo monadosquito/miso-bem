@@ -2,6 +2,10 @@
 
 ## Added
 
+- The utility [`Mks`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:Mks) record and [`init`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#v:init) function
+can be used in place of the regular ones
+in order that the partial configured view generators are available
+inside the former.
 - The [`BlkElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:BlkElem-39-), [`Elem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:Elem-39-), and [`MkBlkElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkBlkElem-39-) type synonyms
 can be used to avoid corresponding view generator types spelling.
 - The view Bem class decorations can be configured

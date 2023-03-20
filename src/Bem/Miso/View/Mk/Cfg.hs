@@ -8,7 +8,7 @@
 module Bem.Miso.View.Mk.Cfg where
 
 
-import Bem.Miso.Utl.Utl
+import qualified Bem.Miso.Utl.Utl as Utl
 import Bem.Miso.View.Html
 
 import Bem.Cfg.Cfg
@@ -18,13 +18,13 @@ import qualified Bem.Utl.Utl as Bem
 
 
 -- | the configurable view makers
-data Mks a m = Mks { _blkElem :: forall c . HtmlElem a c -> c -> BlkElem' a
-                   , _elem :: forall c . HtmlElem a c -> c -> Elem' a
+data Mks a m = Mks { _blkElem :: forall c . HtmlElem a c -> c -> Utl.BlkElem' a
+                   , _elem :: forall c . HtmlElem a c -> c -> Utl.Elem' a
                    , _mkBlkElem
                          :: forall c
                          . HtmlElem a c
                          -> c
-                         -> MkBlkElem' a m
+                         -> Utl.MkBlkElem' a m
                    }
 
 -- | Initialise the configurable view makers using a configuration.
@@ -89,7 +89,7 @@ init cfg
                       \(attrs, views)
                       ->
                       return
-                          $ BlkElem
+                          $ Utl.BlkElem
                           $ \blk blkMods prnt elem' elemMods
                             ->
                             nonVoidHtmlElem
@@ -105,7 +105,7 @@ init cfg
                       \attrs
                       ->
                       return
-                          $ BlkElem
+                          $ Utl.BlkElem
                           $ \blk blkMods prnt elem' elemMods
                             ->
                             voidHtmlElem

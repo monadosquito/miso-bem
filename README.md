@@ -180,13 +180,11 @@ import Bem.Miso.Utl.Utl
 
 import Bem.Init
 
-import Bem.Miso.View.Mk.Cfg
 
-
-mkHeader :: MkBlkElem' () MisoString
+mkHeader :: Reader MisoString (BlkNoModsElem ())
 mkHeader = do
     userName <- ask
-    _mkBlkElem mks (NonVoidHtmlElem header_)
+    _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
         ( []
         , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
                 ([], [text "Logo"])
@@ -300,13 +298,11 @@ import Bem.Miso.Utl.Utl
 
 import Bem.Init
 
-import Bem.Miso.View.Mk.Cfg
 
-
-mkHeader :: MkBlkElem' () MisoString
+mkHeader :: Reader MisoString (BlkNoModsElem ())
 mkHeader = do
     userName <- ask
-    _mkBlkElem mks (NonVoidHtmlElem header_)
+    _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
         ( []
         , [ noModsBlkNoModsElem (NonVoidHtmlElem span_)
                 ([], [text "Logo"])
@@ -328,6 +324,13 @@ namely,
     - and a void one into the `VoidHtmlElem` data constructor.
 - In order that the `Mks` field-functions using custom decorations can be used,
 they must be configured. ([?](#configure-view-makers))
+
+## Hints
+
+- The partial [*view makers*](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:Mks) can be used
+in place
+of the [full ones](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:Mks)
+to omit corresponding needless modifiers.
 
 # Create top-level context
 
@@ -360,11 +363,11 @@ import Miso.String
 
 mkRoot :: Reader MisoString (View ())
 mkRoot = do
-    BlkElem header <- mkHeader
+    BlkNoModsElem header <- mkHeader
     return
         $ div_
               [class_ "Root"]
-              [header Header [Header_Dark] Root Root_Header []]
+              [header Header [Header_Dark] Root Root_Header]
 ```
 
 ## Hints
