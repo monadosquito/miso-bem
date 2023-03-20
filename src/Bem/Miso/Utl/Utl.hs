@@ -441,3 +441,42 @@ init cfg
 
 -- | a singleton view
 type MkSingleton' a m = Reader m (View a)
+
+{- |
+a view having a class of a block along with its modifiers
+and element without its modifiers
+-}
+type BlkNoModsElem' a = FromBlkNoModsElem (View a)
+
+{- |
+a view having access to the model
+and a class of a block along with its modifiers
+and element without its modifiers
+-}
+type MkBlkNoModsElem' a m = Reader m (BlkNoModsElem a)
+
+{- |
+a view having access to the model
+and a class of a block without its modifiers
+and element along with its modifiers
+-}
+type MkNoModsBlkElem' a m = Reader m (NoModsBlkElem a)
+
+{- |
+a view having access to the model
+and a class of a block
+and element without their modifiers
+-}
+type MkNoModsBlkNoModsElem' a m = Reader m (NoModsBlkNoModsElem a)
+
+{- |
+a view having a class of a block without its modifiers
+and element along with its modifiers
+-}
+type NoModsBlkElem' a = FromNoModsBlkElem (View a)
+
+-- | a having a class of a block and element without their modifiers
+type NoModsBlkNoModsElem' a = FromNoModsBlkNoModsElem (View a)
+
+-- | a having a class of an element without its modifiers
+type NoModsElem' a = forall b . FromElem b (View a)

@@ -105,18 +105,17 @@ import Bem.Scheme
 
 import Bem.Miso.View.Html
 import Bem.Miso.View.Mk.Mk
-import Bem.Utl.Intr
 import Miso
 
 import Bem.Init
 
-import Bem.Miso.View.Mk.Cfg
+import Bem.Miso.Utl.Utl
 
 
-search :: FromBlkElem (View ())
+search :: BlkNoModsElem' ()
 search
     =
-    _blkElem mks (NonVoidHtmlElem section_)
+    _blkNoModsElem mks (NonVoidHtmlElem section_)
         ( []
         , ([ blkElem (VoidHtmlElem input_)
                  [placeholder_ "Text to search"]
@@ -181,7 +180,7 @@ import Bem.Miso.Utl.Utl
 import Bem.Init
 
 
-mkHeader :: Reader MisoString (BlkNoModsElem ())
+mkHeader :: MkBlkNoModsElem' () MisoString
 mkHeader = do
     userName <- ask
     _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
@@ -192,7 +191,7 @@ mkHeader = do
                 Root
                 Root_Logo
           , span_ [] [text userName]
-          , search Search [Search_Dark] Header Header_Search []
+          , search Search [Search_Dark] Header Header_Search
           ]
         )
 ```
@@ -239,18 +238,17 @@ import Bem.Scheme
 
 import Bem.Miso.View.Html
 import Bem.Miso.View.Mk.Mk
-import Bem.Utl.Intr
 import Miso
 
 import Bem.Init
 
-import Bem.Miso.View.Mk.Cfg
+import Bem.Miso.Utl.Utl
 
 
-search :: FromBlkElem (View ())
+search :: BlkNoModsElem' ()
 search
     =
-    _blkElem mks (NonVoidHtmlElem section_)
+    _blkNoModsElem mks (NonVoidHtmlElem section_)
         ( []
         , ([ blkElem (VoidHtmlElem input_)
                  [placeholder_ "Text to search"]
@@ -299,7 +297,7 @@ import Bem.Miso.Utl.Utl
 import Bem.Init
 
 
-mkHeader :: Reader MisoString (BlkNoModsElem ())
+mkHeader :: MkBlkNoModsElem' () MisoString
 mkHeader = do
     userName <- ask
     _mkBlkNoModsElem mks (NonVoidHtmlElem header_)
@@ -310,7 +308,7 @@ mkHeader = do
                 Root
                 Root_Logo
           , span_ [] [text userName]
-          , search Search [Search_Dark] Header Header_Search []
+          , search Search [Search_Dark] Header Header_Search
           ]
         )
 ```

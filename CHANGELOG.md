@@ -2,6 +2,16 @@
 
 ## Added
 
+- The [`BlkNoModsElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:BlkNoModsElem-39-),
+[`MkBlkNoModsElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkBlkNoModsElem-39-),
+[`MkNoModsBlkElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkNoModsBlkElem-39-),
+[`MkNoModsBlkNoModsElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkNoModsBlkNoModsElem-39-),
+[`NoModsBlkElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:NoModsBlkElem-39-),
+[`NoModsBlkNoModsElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:NoModsBlkNoModsElem-39-),
+and [`NoModsElem'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:NoModsElem-39-)
+type synonyms
+can be used
+to avoid corresponding view types spelling.
 - The [`MkSingleton'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkSingleton-39-) type synonym
 can be used
 to type-annotate a singleton view.
