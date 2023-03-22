@@ -19,6 +19,7 @@ library
         , Bem.Miso.View.Mk.Mk
         , Bem.Miso.View.View
         , Bem.Miso.Utl.Utl
+        , Bem.Miso.Utl.Intr
         , Bem.Miso.View.Mk.Cfg
     hs-source-dirs: src
     other-extensions:
