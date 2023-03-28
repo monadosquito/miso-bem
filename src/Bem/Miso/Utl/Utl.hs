@@ -57,7 +57,7 @@ Make a view
 having a class of a block along with its modifiers
 and element without its modifiers.
 -}
-blkNoModsElem :: HtmlElem a c -> c -> FromBlkNoModsElem (View a)
+blkNoModsElem :: HtmlElem a c -> c -> BlkNoModsElem' a
 blkNoModsElem = _blkNoModsElem $ Bem.Miso.Utl.Utl.init defCfg
 
 {- |
@@ -66,7 +66,7 @@ having access to the model
 and a class of a block along with its modifiers
 and element without its modifiers.
 -}
-mkBlkNoModsElem :: HtmlElem a c -> c -> Reader m (BlkNoModsElem a)
+mkBlkNoModsElem :: HtmlElem a c -> c -> MkBlkNoModsElem' a m
 mkBlkNoModsElem = _mkBlkNoModsElem $ Bem.Miso.Utl.Utl.init defCfg
 
 {- |
@@ -75,7 +75,7 @@ having access to the model
 and a class of a block without its modifiers
 and element along with its modifiers.
 -}
-mkNoModsBlkElem :: HtmlElem a c -> c -> Reader m (NoModsBlkElem a)
+mkNoModsBlkElem :: HtmlElem a c -> c -> MkNoModsBlkElem' a m
 mkNoModsBlkElem = _mkNoModsBlkElem $ Bem.Miso.Utl.Utl.init defCfg
 
 {- |
@@ -84,7 +84,7 @@ having access to the model
 and a class of a block
 and element without their modifiers.
 -}
-mkNoModsBlkNoModsElem :: HtmlElem a c -> c -> Reader m (NoModsBlkNoModsElem a)
+mkNoModsBlkNoModsElem :: HtmlElem a c -> c -> MkNoModsBlkNoModsElem' a m
 mkNoModsBlkNoModsElem = _mkNoModsBlkNoModsElem $ Bem.Miso.Utl.Utl.init defCfg
 
 {- |
@@ -92,15 +92,15 @@ Make a view
 having a class of a block without its modifiers
 and element along with its modifiers.
 -}
-noModsBlkElem :: HtmlElem a c -> c -> FromNoModsBlkElem (View a)
+noModsBlkElem :: HtmlElem a c -> c -> NoModsBlkElem' a
 noModsBlkElem = _noModsBlkElem $ Bem.Miso.Utl.Utl.init defCfg
 
 -- | Make a view having a class of a block and element without their modifiers.
-noModsBlkNoModsElem :: HtmlElem a c -> c -> FromNoModsBlkNoModsElem (View a)
+noModsBlkNoModsElem :: HtmlElem a c -> c -> NoModsBlkNoModsElem' a
 noModsBlkNoModsElem = _noModsBlkNoModsElem $ Bem.Miso.Utl.Utl.init defCfg
 
 -- | Make a view having a class of an element without its modifiers.
-noModsElem :: HtmlElem a c -> c -> forall b . FromElem b (View a)
+noModsElem :: HtmlElem a c -> c -> NoModsElem' a
 noModsElem = _noModsElem $ Bem.Miso.Utl.Utl.init defCfg
 
 
@@ -134,12 +134,12 @@ data Mks a m = Mks { _blkElem :: forall c . HtmlElem a c -> c -> BlkElem' a
                          :: forall c
                          . HtmlElem a c
                          -> c
-                         -> Reader m (BlkNoModsElem a)
+                         -> MkBlkNoModsElem' a m
                    , _mkNoModsBlkElem
                          :: forall c
                          . HtmlElem a c
                          -> c
-                         -> Reader m (NoModsBlkElem a)
+                         -> MkNoModsBlkElem' a m
                    , _mkNoModsBlkNoModsElem
                          :: forall c
                          . HtmlElem a c
@@ -149,7 +149,7 @@ data Mks a m = Mks { _blkElem :: forall c . HtmlElem a c -> c -> BlkElem' a
                          :: forall c
                          . HtmlElem a c
                          -> c
-                         -> FromNoModsBlkElem (View a)
+                         -> NoModsBlkElem' a
                    , _noModsBlkNoModsElem
                          :: forall c
                          . HtmlElem a c
@@ -159,7 +159,7 @@ data Mks a m = Mks { _blkElem :: forall c . HtmlElem a c -> c -> BlkElem' a
                          :: forall c
                          . HtmlElem a c
                          -> c
-                         -> forall b . FromElem b (View a)
+                         -> NoModsElem' a
                    }
 
 -- | Initialise the configurable partial views makers using a configuration.
