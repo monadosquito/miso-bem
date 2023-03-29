@@ -356,12 +356,11 @@ import Bem.Scheme
 import View.Header
 
 import Bem.Miso.Utl.Utl
-import Control.Monad.Reader
 import Miso
 import Miso.String
 
 
-mkRoot :: Reader MisoString (View ())
+mkRoot :: MkSingleton' () MisoString
 mkRoot = do
     BlkNoModsElem header <- mkHeader
     return
@@ -373,6 +372,10 @@ mkRoot = do
 ## Hints
 
 - The topmost BEM block should be invisible HTML element.
+- If a *context* is defined as a top-level binding,
+then the [`MkSingleton`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkRoot) type constructor
+applied to the model and the action
+can be used as a type signature for it.
 - If a top-level *context* returns a `miso` HTML element
 having a topmost BEM block,
 then global styles can be set on the topmost BEM block.

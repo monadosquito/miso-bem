@@ -437,3 +437,7 @@ init cfg
         }
   where
     Bem.Gens {..} = Bem.init cfg
+
+
+-- | a singleton view
+type MkSingleton' a m = Reader m (View a)

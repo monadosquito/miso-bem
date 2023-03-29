@@ -2,6 +2,9 @@
 
 ## Added
 
+- The [`MkSingleton'`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:MkSingleton-39-) type synonym
+can be used
+to type-annotate a singleton view.
 - The utility [`Mks`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#t:Mks) record and [`init`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#v:init) function
 can be used in place of the regular ones
 in order that the partial configured view generators are available
