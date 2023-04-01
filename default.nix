@@ -25,5 +25,6 @@ in
                 "miso-bem"
                 ./.
                 {
+                    miso = (pin.miso {}).miso-jsaddle;
                     inherit bem;
                 }
