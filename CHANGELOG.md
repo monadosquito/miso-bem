@@ -1,5 +1,7 @@
 # [Unreleased]
 
+# [1.0.0] - 2023-07-01
+
 ## Added
 
 - The [`blkNoModsElem`](https://monadosquito.github.io/miso-bem/Bem-Miso-Utl-Utl.html#v:blkNoModsElem),
